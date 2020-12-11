@@ -131,7 +131,7 @@ router.put(
         };
         newProductsArray.push(modifiedProduct);
         await writeDB(productsFilePath, newProductsArray);
-        res.send(`product with id ${productId} modified`);
+        res.send({ ID: productId });
       }
     } catch (error) {
       next(error);
