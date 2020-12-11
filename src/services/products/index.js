@@ -75,4 +75,47 @@ router.get("/", async (req, res, next) => {
   }
 })
 
+//Update
+
+router.put(
+  "/:productId",
+  [
+    check("name").exists().withMessage("Insert name please"),
+    check("description")
+      .isLength({ min: 5 })
+      .withMessage("description must be at least 5 characters")
+      .exists()
+      .withMessage("enter descritpion"),
+    check("brand").exists().withMessage("Insert brand"),
+    check("price").exists().withMessage("enter product price"),
+  ],
+  async (req, res, next) => {
+    const productId = req.params.productId
+    try {
+      const errors = validationResult(req)
+      if (!errors.isEmpty()) {
+        const err = new Error()
+        err.message = errors
+        err.httpStatusCode = 400
+        next(err)
+      } else {
+        const products = await readDB(productsFilePath)
+        const newProductsArray = products.filter(
+          (product) => product.ID !== productId
+        )
+        const modifiedProduct = {
+          ...req.body,
+          ID: productId,
+          modifiedAt: new Date(),
+        }
+        newProductsArray.push(modifiedProduct)
+        await writeDB(productsFilePath, newProductsArray)
+        res.send(`product with id ${productId} modified`)
+      }
+    } catch (error) {
+      next(error)
+    }
+  }
+)
+
 module.exports = router
