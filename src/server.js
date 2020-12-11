@@ -1,6 +1,7 @@
 //---------------------Require
-const express = require("express")
-const cors = require("cors")
+const express = require("express");
+const cors = require("cors");
+const reviews = require("./services/reviews");
 
 const {
   notFoundErrorHandler,
@@ -8,26 +9,29 @@ const {
   forbiddenErrorHandler,
   badRequestErrorHandler,
   catchAllErrorHandler,
-} = require("./errorHandling")
+} = require("./errorHandling");
 
 //Routes
 const productsRoutes = require("./services/products")
 
 //---------------------Instances
-const server = express()
+const server = express();
 
 //-----------------------Use
+
 server.use(cors())
 server.use(express.json())
+server.use("/reviews", reviews);
 server.use("/products", productsRoutes)
 
+
 //errors
-server.use(notFoundErrorHandler)
-server.use(unauthorizedErrorHandler)
-server.use(forbiddenErrorHandler)
-server.use(badRequestErrorHandler)
-server.use(catchAllErrorHandler)
+server.use(badRequestErrorHandler);
+server.use(notFoundErrorHandler);
+server.use(forbiddenErrorHandler);
+server.use(unauthorizedErrorHandler);
+server.use(catchAllErrorHandler);
 
 //---------------------Listen
-const port = process.env.PORT || 3001
-server.listen(port, () => console.log("server created on port", port))
+const port = process.env.PORT || 3001;
+server.listen(port, () => console.log("server created on port", port));
