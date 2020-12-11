@@ -3,8 +3,6 @@ const path = require("path");
 const uniqid = require("uniqid");
 const { check, validationResult } = require("express-validator");
 const { readDB, writeDB } = require("../../lib/utilities");
-const { EROFS } = require("constants");
-const { read } = require("fs-extra");
 
 const router = express.Router();
 
