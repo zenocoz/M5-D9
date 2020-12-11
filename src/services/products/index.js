@@ -182,17 +182,11 @@ router.post(
       let singleProduct = await products.find(
         (product) => product.ID === productId
       );
-      singleProduct = {
-        ...singleProduct,
-        imageUrl: `http://localhost:${process.env.PORT}/img/projects/${singleProduct.ID}.jpg)`,
-        modifiedAt: new Date(),
-      };
 
-      const modifiedProductsArr = products.filter(
-        (product) => product.ID !== productId
-      );
-      modifiedProductsArr.push(singleProduct);
-      await writeDB(productsFilePath, modifiedProductsArr);
+      singleProduct.imageUrl = `http://localhost:${process.env.PORT}/img/products/${singleProduct.ID}.jpg`;
+
+      await writeDB(productsFilePath, products);
+      res.send("ok");
     } catch (error) {
       console.log(error);
       next(error);

@@ -10,16 +10,6 @@
     "modifiedAt": "2020-12-11T10:42:29.000Z"
   },
   {
-    "name": "Tyll",
-    "description": "German novel",
-    "brand": "Scribner",
-    "imageUrl": "",
-    "price": 21,
-    "category": "books",
-    "ID": "n7879dgwkik575lw",
-    "modifiedAt": "2020-12-11T10:43:39.427Z"
-  },
-  {
     "name": "JavaScript the Good Parts",
     "description": "essential book",
     "brand": "O' Reilly",
@@ -34,10 +24,20 @@
     "name": "IPhone 11",
     "description": "cool phone",
     "brand": "apple",
-    "imageUrl": "http://localhost:3003/img/projects/n78796g4kik53c3q.jpg)",
+    "imageUrl": "http://localhost:3003/img/products/n78796g4kik53c3q.jpg",
     "price": 600,
     "category": "smarthphones",
     "ID": "n78796g4kik53c3q",
     "modifiedAt": "2020-12-11T14:02:14.004Z"
+  },
+  {
+    "name": "Tyll",
+    "description": "German novel",
+    "brand": "Scribner",
+    "price": 21,
+    "category": "books",
+    "ID": "n7879dgwkik575lw",
+    "modifiedAt": "2020-12-11T14:16:24.706Z",
+    "imageUrl": "http://localhost:3003/img/products/n7879dgwkik575lw.jpg"
   }
 ]
