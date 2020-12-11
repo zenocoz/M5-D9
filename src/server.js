@@ -11,13 +11,19 @@ const {
   catchAllErrorHandler,
 } = require("./errorHandling");
 
+//Routes
+const productsRoutes = require("./services/products")
+
 //---------------------Instances
 const server = express();
 
 //-----------------------Use
-server.use(cors());
-server.use(express.json());
+
+server.use(cors())
+server.use(express.json())
 server.use("/reviews", reviews);
+server.use("/products", productsRoutes)
+
 
 //errors
 server.use(badRequestErrorHandler);
