@@ -2,7 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 const reviews = require("./services/reviews");
-
+const { join } = require("path");
 const {
   notFoundErrorHandler,
   unauthorizedErrorHandler,
@@ -12,18 +12,19 @@ const {
 } = require("./errorHandling");
 
 //Routes
-const productsRoutes = require("./services/products")
+const productsRoutes = require("./services/products");
 
+const publicFolderPath = join(__dirname, "../public");
 //---------------------Instances
 const server = express();
 
 //-----------------------Use
 
-server.use(cors())
-server.use(express.json())
+server.use(cors());
+server.use(express.json());
+server.use(express.static(publicFolderPath));
 server.use("/reviews", reviews);
-server.use("/products", productsRoutes)
-
+server.use("/products", productsRoutes);
 
 //errors
 server.use(badRequestErrorHandler);
