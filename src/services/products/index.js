@@ -14,6 +14,7 @@ const upload = multer({})
 
 //Paths
 const productsFilePath = path.join(__dirname, "products.json")
+const productsFolderPath = path.join(__dirname, "../../../public/img/products")
 const reviewsFilePath = path.join(__dirname, "../reviews/reviews.json")
 
 //------------------------------------------ENDPOINTS--------------------------------//
@@ -164,4 +165,39 @@ router.get("/:id/reviews", async (req, res, next) => {
     next(error)
   }
 })
+
+//Upload Picture
+
+router.post(
+  "/:id/uploadPicture",
+  upload.single("product"),
+  async (req, res, next) => {
+    try {
+      const productId = req.params.id
+      await writeFile(
+        path.join(productsFolderPath, `${productId}.jpg`),
+        req.file.buffer
+      )
+      const products = await readDB(productsFilePath)
+      let singleProduct = await products.find(
+        (product) => product.ID === productId
+      )
+      singleProduct = {
+        ...singleProduct,
+        image: `http://localhost:${process.env.PORT}/img/projects/${singleProduct.ID}.jpg)`,
+        modifiedAt: new Date(),
+      }
+
+      const modifiedProductsArr = products.filter(
+        (product) => product.ID !== productId
+      )
+      modifiedProductsArr.push(singleProduct)
+      await writeDB(productsFilePath, modifiedProductsArr)
+    } catch (error) {
+      console.log(error)
+      next(error)
+    }
+  }
+)
+
 module.exports = router
