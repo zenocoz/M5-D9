@@ -8,5 +8,35 @@
         "category": "smarthphones",
         "ID": "n78796g4kik53c3q",
         "modifiedAt": "2020-12-11T10:40:41.221Z"
+    },
+    {
+        "name": "Galaxy",
+        "description": "okay phone",
+        "brand": "samsung",
+        "imageUrl": "",
+        "price": 400,
+        "category": "smarthphones",
+        "ID": "n78795sgkik55n9l",
+        "modifiedAt": "2020-12-11T10:42:29.000Z"
+    },
+    {
+        "name": "Tyll",
+        "description": "German novel",
+        "brand": "Scribner",
+        "imageUrl": "",
+        "price": 21,
+        "category": "books",
+        "ID": "n7879dgwkik575lw",
+        "modifiedAt": "2020-12-11T10:43:39.427Z"
+    },
+    {
+        "name": "JavaScript the Good Parts",
+        "description": "Programming",
+        "brand": "O' Reilly",
+        "imageUrl": "",
+        "price": 12,
+        "category": "books",
+        "ID": "n7879icgkik58coh",
+        "modifiedAt": "2020-12-11T10:44:35.248Z"
     }
 ]
