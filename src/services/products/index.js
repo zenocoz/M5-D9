@@ -6,14 +6,14 @@ const uniquid = require("uniqid")
 const multer = require("multer")
 const { writeFile, createReadStream } = require("fs-extra")
 const { check, validationResult } = require("express-validator")
-const { readDB, writeDB } = require("../../utils/utilities")
+const { readDB, writeDB } = require("../../lib/utilities")
 
 //Create Middleware Instances
 const router = express.Router()
 const upload = multer({})
 
 //Paths
-const productsFilePath = path.join(__dirname, "product.json")
+const productsFilePath = path.join(__dirname, "products.json")
 
 //------------------------------------------ENDPOINTS--------------------------------//
 
@@ -28,7 +28,7 @@ router.post(
       .exists()
       .withMessage("enter descritpion"),
     check("brand").exists().withMessage("Insert brand"),
-    check("price").exists.withMessage("enter product price"),
+    check("price").exists().withMessage("enter product price"),
   ],
   async (req, res, next) => {
     try {
@@ -54,3 +54,5 @@ router.post(
     }
   }
 )
+
+module.exports = router

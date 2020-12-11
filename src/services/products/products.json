@@ -1,1 +1,12 @@
-[]
+[
+    {
+        "name": "IPhone 11",
+        "description": "cool phone",
+        "brand": "apple",
+        "imageUrl": "",
+        "price": 600,
+        "category": "smarthphones",
+        "ID": "n78796g4kik53c3q",
+        "modifiedAt": "2020-12-11T10:40:41.221Z"
+    }
+]
