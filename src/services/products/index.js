@@ -55,4 +55,24 @@ router.post(
   }
 )
 
+//Read
+
+router.get("/", async (req, res, next) => {
+  try {
+    const products = await readDB(productsFilePath)
+    if (req.query && req.query.category) {
+      const filteredProducts = products.filter(
+        (product) =>
+          product.hasOwnProperty("category") &&
+          product.category === req.query.category
+      )
+      res.send(filteredProducts)
+    } else {
+      res.send(products)
+    }
+  } catch (error) {
+    next(error)
+  }
+})
+
 module.exports = router
