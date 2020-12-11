@@ -122,11 +122,19 @@ router.put(
 router.delete("/:productId", async (req, res, next) => {
   const productId = req.params.productId
   const products = await readDB(productsFilePath)
-  const newProductsArray = products.filter(
-    (product) => product.ID !== productId
-  )
-  await writeDB(productsFilePath, newProductsArray)
-  res.status(204).send(`project with id ${productId} deleted`)
+  const checkIdIsCorrect = products.find((product) => product.ID === productId)
+  if (!checkIdIsCorrect) {
+    const err = new Error()
+    err.message = "Id not found"
+    err.httpStatusCode = 404
+    next(err)
+  } else {
+    const newProductsArray = products.filter(
+      (product) => product.ID !== productId
+    )
+    await writeDB(productsFilePath, newProductsArray)
+    res.status(204).send(`project with id ${productId} deleted`)
+  }
 })
 
 module.exports = router
