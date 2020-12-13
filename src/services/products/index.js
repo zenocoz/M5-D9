@@ -66,7 +66,7 @@ router.get("/", async (req, res, next) => {
       const filteredProducts = products.filter(
         (product) =>
           product.hasOwnProperty("category") &&
-          product.category === req.query.category
+          product.category.startsWith(req.query.category)
       );
       res.send(filteredProducts);
     } else {
