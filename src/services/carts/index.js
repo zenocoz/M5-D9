@@ -19,48 +19,58 @@ const productsFilePath = path.join(__dirname, "../products/products.json")
 
 //Validation checks
 const cartsValidation = [
-    
-        check("name").exists().withMessage("Insert name please"),
-        check("description")
-          .isLength({ min: 5 })
-          .withMessage("description must be at least 5 characters")
-          .exists()
-          .withMessage("enter descritpion"),
-        check("brand").exists().withMessage("Insert brand"),
-        check("price").exists().withMessage("enter product price"),
-
+  // check("ownerId").exists().withMessage("owner id mandatory"),
+  // check("total").isFloat({ min: 0 }).withMessage("Price must be non negative"),
 ]
 
 //------------------------------------------ENDPOINTS--------------------------------//
 
-//Create
+//add product to cart
 router.post(
-  "/",
-,
-  async (req, res, next) => {}
+  "/:cartId/add-to-cart/:productId",
+  cartsValidation,
+  async (req, res, next) => {
+    try {
+      //todo check errors differently
+      const validationErrors = validationResult(req)
+
+      if (!validationErrors.isEmpty()) {
+        const error = new Error()
+        error.httpStatusCode = 400
+        error.message = validationErrors
+        next(error)
+      } else {
+        productId = req.params.productId
+        cartId = req.params.cartId
+        const carts = await readDB(cartsFilePath)
+        const singleCart = carts.find((cart) => cart._id === cartId)
+        singleCart.products.push({ ID: productId })
+        await writeDB(cartsFilePath, carts)
+        res.send(singleCart)
+      }
+    } catch (errors) {
+      next(errors)
+    }
+  }
 )
 
 //Read
 
-router.get("/", async (req, res, next) => {})
-
-//get single product
-router.get("/:id", async (req, res, next) => {
+//get cart
+router.get("/:cartId", async (req, res, next) => {
   try {
+    const carts = await readDB(cartsFilePath)
+    const cart = carts.find((cart) => (cart._id = req.params.cartId))
+    console.log(cart.products[0].ID)
+
     const products = await readDB(productsFilePath)
-    const singleProduct = products.filter(
-      (product) => product.ID === req.params.id
+
+    const cartProducts = cart.products.forEach((cartProduct) =>
+      products.filter((product, index) => product.ID === cartProduct.ID)
     )
-    if (singleProduct.length > 0) {
-      res.send(singleProduct)
-    } else {
-      const err = new Error()
-      err.httpStatusCode = 404
-      next(err)
-    }
-  } catch (error) {
-    next(error)
-  }
+
+    console.log(cartProducts)
+  } catch {}
 })
 
 //Update

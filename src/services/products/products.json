@@ -1,1 +1,143 @@
-[{"name":"Galaxy","description":"okay phone","brand":"samsung","imageUrl":"","price":400,"category":"smarthphones","ID":"n78795sgkik55n9l","modifiedAt":"2020-12-11T10:42:29.000Z"},{"name":"JavaScript the Good Parts","description":"essential book","brand":"O' Reilly","imageUrl":"http://localhost:3001/img/products/n7879hockikb4lsx.jpg","price":12,"category":"books","ID":"n7879hockikb4lsx","modifiedAt":"2020-12-11T13:33:47.198Z"},{"name":"IPhone 11","description":"cool phone","brand":"apple","imageUrl":"http://localhost:3003/img/products/n78796g4kik53c3q.jpg","price":600,"category":"smarthphones","ID":"n78796g4kik53c3q","modifiedAt":"2020-12-11T14:02:14.004Z"},{"name":"Tyll","description":"German novel","brand":"Scribner","price":21,"category":"books","ID":"n7879dgwkik575lw","modifiedAt":"2020-12-11T14:16:24.706Z","imageUrl":"http://localhost:3003/img/products/n7879dgwkik575lw.jpg"},{"name":"nokia 3310","description":"strong very very strong","brand":"Nokia","price":"9999","category":"phone","ID":"5026k65g4kikg1f5m","modifiedAt":"2020-12-11T15:47:07.641Z"},{"name":"nokia 3310","description":"strong very very strong","brand":"Nokia","price":"9999","category":"phone","ID":"5026k6434kikg3qxz","modifiedAt":"2020-12-11T15:48:56.230Z"},{"name":"nokia 3310","description":"strong very very strong","brand":"Nokia","price":"999","category":"phone","ID":"5026k6gagkikgnksb","modifiedAt":"2020-12-11T16:04:21.370Z"},{"name":"nokia 3310","description":"strong very very strong","brand":"Nokia","price":"999","category":"phone","ID":"5026k6ehskikgpsbg","modifiedAt":"2020-12-11T16:06:04.443Z"},{"name":"nokia 3310","description":"strong very very strong","brand":"Nokia","price":"2222","category":"phone","ID":"5026k6cjwkikh6kij","modifiedAt":"2020-12-11T16:19:07.482Z"},{"name":"nokia 3310","description":"strong very very strong","brand":"Nokia","price":"123123","category":"phone","ID":"5026k64nokikh7zzt","modifiedAt":"2020-12-11T16:20:14.200Z"},{"name":"nokia 3310","description":"strong very very strong","brand":"Nokia","price":"12313","category":"phone","ID":"5026k6djkkikhab79","modifiedAt":"2020-12-11T16:22:02.036Z"},{"name":"nokia 3310","description":"strong very very strong","brand":"Nokia","price":"12","category":"phone","ID":"5026k6h1okikhcfpr","modifiedAt":"2020-12-11T16:23:41.198Z"},{"name":"nokia 3310","description":"strong very very strong","brand":"Nokia","price":"01231","category":"phone","ID":"5026k67akkikhd89g","modifiedAt":"2020-12-11T16:24:18.195Z"},{"name":"nokia 3310","description":"strong very very strong","brand":"Nokia","price":"0123","category":"phone","ID":"5026k6570kikhfl8n","modifiedAt":"2020-12-11T16:26:08.326Z","imageUrl":"http://localhost:3003/img/products/5026k6570kikhfl8n.jpg"},{"name":"nokia 3310","description":"strong very very strong","brand":"Nokia","price":"1231","category":"horror","ID":"5026k6dy0kikmzxlk","modifiedAt":"2020-12-11T19:01:55.543Z","imageUrl":"http://localhost:3003/img/products/5026k6dy0kikmzxlk.jpg"}]
+[
+    {
+        "name": "Galaxy",
+        "description": "okay phone",
+        "brand": "samsung",
+        "imageUrl": "",
+        "price": 400,
+        "category": "smarthphones",
+        "ID": "n78795sgkik55n9l",
+        "modifiedAt": "2020-12-11T10:42:29.000Z"
+    },
+    {
+        "name": "JavaScript the Good Parts",
+        "description": "essential book",
+        "brand": "O' Reilly",
+        "imageUrl": "http://localhost:3001/img/products/n7879hockikb4lsx.jpg",
+        "price": 12,
+        "category": "books",
+        "ID": "n7879hockikb4lsx",
+        "modifiedAt": "2020-12-11T13:33:47.198Z"
+    },
+    {
+        "name": "IPhone 11",
+        "description": "cool phone",
+        "brand": "apple",
+        "imageUrl": "http://localhost:3003/img/products/n78796g4kik53c3q.jpg",
+        "price": 600,
+        "category": "smarthphones",
+        "ID": "n78796g4kik53c3q",
+        "modifiedAt": "2020-12-11T14:02:14.004Z"
+    },
+    {
+        "name": "Tyll",
+        "description": "German novel",
+        "brand": "Scribner",
+        "price": 21,
+        "category": "books",
+        "ID": "n7879dgwkik575lw",
+        "modifiedAt": "2020-12-11T14:16:24.706Z",
+        "imageUrl": "http://localhost:3003/img/products/n7879dgwkik575lw.jpg"
+    },
+    {
+        "name": "nokia 3310",
+        "description": "strong very very strong",
+        "brand": "Nokia",
+        "price": "9999",
+        "category": "phone",
+        "ID": "5026k65g4kikg1f5m",
+        "modifiedAt": "2020-12-11T15:47:07.641Z"
+    },
+    {
+        "name": "nokia 3310",
+        "description": "strong very very strong",
+        "brand": "Nokia",
+        "price": "9999",
+        "category": "phone",
+        "ID": "5026k6434kikg3qxz",
+        "modifiedAt": "2020-12-11T15:48:56.230Z"
+    },
+    {
+        "name": "nokia 3310",
+        "description": "strong very very strong",
+        "brand": "Nokia",
+        "price": "999",
+        "category": "phone",
+        "ID": "5026k6gagkikgnksb",
+        "modifiedAt": "2020-12-11T16:04:21.370Z"
+    },
+    {
+        "name": "nokia 3310",
+        "description": "strong very very strong",
+        "brand": "Nokia",
+        "price": "999",
+        "category": "phone",
+        "ID": "5026k6ehskikgpsbg",
+        "modifiedAt": "2020-12-11T16:06:04.443Z"
+    },
+    {
+        "name": "nokia 3310",
+        "description": "strong very very strong",
+        "brand": "Nokia",
+        "price": "2222",
+        "category": "phone",
+        "ID": "5026k6cjwkikh6kij",
+        "modifiedAt": "2020-12-11T16:19:07.482Z"
+    },
+    {
+        "name": "nokia 3310",
+        "description": "strong very very strong",
+        "brand": "Nokia",
+        "price": "123123",
+        "category": "phone",
+        "ID": "5026k64nokikh7zzt",
+        "modifiedAt": "2020-12-11T16:20:14.200Z"
+    },
+    {
+        "name": "nokia 3310",
+        "description": "strong very very strong",
+        "brand": "Nokia",
+        "price": "12313",
+        "category": "phone",
+        "ID": "5026k6djkkikhab79",
+        "modifiedAt": "2020-12-11T16:22:02.036Z"
+    },
+    {
+        "name": "nokia 3310",
+        "description": "strong very very strong",
+        "brand": "Nokia",
+        "price": "12",
+        "category": "phone",
+        "ID": "5026k6h1okikhcfpr",
+        "modifiedAt": "2020-12-11T16:23:41.198Z"
+    },
+    {
+        "name": "nokia 3310",
+        "description": "strong very very strong",
+        "brand": "Nokia",
+        "price": "01231",
+        "category": "phone",
+        "ID": "5026k67akkikhd89g",
+        "modifiedAt": "2020-12-11T16:24:18.195Z"
+    },
+    {
+        "name": "nokia 3310",
+        "description": "strong very very strong",
+        "brand": "Nokia",
+        "price": "0123",
+        "category": "phone",
+        "ID": "5026k6570kikhfl8n",
+        "modifiedAt": "2020-12-11T16:26:08.326Z",
+        "imageUrl": "http://localhost:3003/img/products/5026k6570kikhfl8n.jpg"
+    },
+    {
+        "name": "nokia 3310",
+        "description": "strong very very strong",
+        "brand": "Nokia",
+        "price": "1231",
+        "category": "horror",
+        "ID": "5026k6dy0kikmzxlk",
+        "modifiedAt": "2020-12-11T19:01:55.543Z",
+        "imageUrl": "http://localhost:3003/img/products/5026k6dy0kikmzxlk.jpg"
+    }
+]

@@ -1,1 +1,29 @@
-[]
+[
+    {
+        "_id": "5f6b1991df85440017160811",
+        "ownerId": "5f6b1991df8544001716080f",
+        "name": "Diego",
+        "surname": "Banovaz",
+        "products": [
+            {
+                "ID": "n78795sgkik55n9l"
+            }
+        ],
+        "total": 0
+    },
+    {
+        "_id": "5f6b1991df85440017160812",
+        "ownerId": "5f6b1991df8544001716080g",
+        "surname": "Casasola",
+        "products": [],
+        "total": 0
+    },
+    {
+        "_id": "5f6b1991df85440017160813",
+        "ownerId": "5f6b1991df8544001716080h",
+        "name": "Stefano",
+        "surname": "Miceli",
+        "products": [],
+        "total": 0
+    }
+]
