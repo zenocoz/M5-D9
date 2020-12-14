@@ -7,6 +7,7 @@ const multer = require("multer")
 const { writeFile, createReadStream } = require("fs-extra")
 const { check, validationResult } = require("express-validator")
 const { readDB, writeDB } = require("../../lib/utilities")
+const { send } = require("process")
 
 //Create Middleware Instances
 const router = express.Router()
@@ -31,7 +32,7 @@ router.post(
   cartsValidation,
   async (req, res, next) => {
     try {
-      //todo check errors differently
+      //todo check errors differently if you don't have a body
       const validationErrors = validationResult(req)
 
       if (!validationErrors.isEmpty()) {
@@ -44,7 +45,7 @@ router.post(
         cartId = req.params.cartId
         const carts = await readDB(cartsFilePath)
         const singleCart = carts.find((cart) => cart._id === cartId)
-        singleCart.products.push({ ID: productId })
+        singleCart.products.push(productId)
         await writeDB(cartsFilePath, carts)
         res.send(singleCart)
       }
@@ -60,37 +61,65 @@ router.post(
 router.get("/:cartId", async (req, res, next) => {
   try {
     const carts = await readDB(cartsFilePath)
-    const cart = carts.find((cart) => (cart._id = req.params.cartId))
-    console.log(cart.products[0].ID)
+    const cart = carts.find((cart) => cart._id === req.params.cartId)
 
-    const products = await readDB(productsFilePath)
+    if (!cart) {
+      const error = new Error("Cart Id not found")
+      error.httpStatusCode = 404
+      next(error)
+    } else {
+      const products = await readDB(productsFilePath)
 
-    const cartProducts = cart.products.forEach((cartProduct) =>
-      products.filter((product, index) => product.ID === cartProduct.ID)
-    )
-
-    console.log(cartProducts)
-  } catch {}
+      const filteredProducts = products.filter((product) =>
+        cart.products.includes(product.ID)
+      )
+      cart.products = filteredProducts
+      res.send(cart)
+    }
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
 })
 
-//Update
-
-router.put(
-  "/:productId",
-  [
-    check("name").exists().withMessage("Insert name please"),
-    check("description")
-      .isLength({ min: 5 })
-      .withMessage("description must be at least 5 characters")
-      .exists()
-      .withMessage("enter descritpion"),
-    check("brand").exists().withMessage("Insert brand"),
-    check("price").exists().withMessage("enter product price"),
-  ],
-  async (req, res, next) => {}
-)
-
 //Delete
-router.delete("/:productId", async (req, res, next) => {})
+router.delete(
+  "/:cartId/remove-from-cart/:productId",
+  async (req, res, next) => {
+    try {
+      const carts = await readDB(cartsFilePath)
+      const cart = carts.find((cart) => cart._id === req.params.cartId)
+      if (!cart) {
+        const error = new Error()
+        error.message = "Cart ID not found"
+        error.httpStatusCode = 404
+        next(error)
+      } else {
+        const products = await readDB(productsFilePath)
+        const singleProduct = products.find(
+          (product) => product.ID === req.params.productId
+        )
+        if (!singleProduct) {
+          const error = new Error("Product not found")
+          error.httpStatusCode = 404
+          next(error)
+        } else {
+          const filteredCartProducts = cart.products.filter(
+            (element) => element !== singleProduct.ID
+          )
+
+          console.log(filteredCartProducts)
+          cart.products = filteredCartProducts
+
+          await writeDB(cartsFilePath, carts)
+
+          res.status(204).send()
+        }
+      }
+    } catch (err) {
+      next(err)
+    }
+  }
+)
 
 module.exports = router
