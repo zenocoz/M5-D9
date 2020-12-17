@@ -73,7 +73,10 @@ router.get("/:cartId", async (req, res, next) => {
       const filteredProducts = products.filter((product) =>
         cart.products.includes(product.ID)
       )
+
+      console.log(total_price)
       cart.products = filteredProducts
+
       res.send(cart)
     }
   } catch (error) {
