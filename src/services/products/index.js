@@ -7,10 +7,18 @@ const multer = require("multer")
 const { writeFile, createReadStream } = require("fs-extra")
 const { check, validationResult } = require("express-validator")
 const { readDB, writeDB } = require("../../lib/utilities")
+const { parseString } = require("xml2js")
+const publicIp = require("public-ip")
+const axios = require("axios")
+const { promisify } = require("util")
+const { begin } = require("xmlbuilder")
+const { parse } = require("path")
+const { send } = require("process")
 
 //Create Middleware Instances
 const router = express.Router()
 const upload = multer({})
+const asyncParser = promisify(parseString)
 
 //Paths
 const productsFilePath = path.join(__dirname, "products.json")
@@ -215,12 +223,68 @@ router.post(
 
 //sum two prices
 router.get("/sum/TwoPrices", async (req, res, next) => {
-  const products = await readDB(productsFilePath)
-  if (req.query.p1 && req.query.p2) {
-    const product1 = products.find((product) => product.ID === req.query.p1)
-    const product2 = products.find((product) => product.ID === req.query.p2)
-  } else {
-    console.log("one or both id not found")
+  try {
+    const products = await readDB(productsFilePath)
+    if (req.query.p1 && req.query.p2) {
+      const product1 = products.find((product) => product.ID === req.query.p1)
+      const product2 = products.find((product) => product.ID === req.query.p2)
+
+      //     POST /calculator.asmx HTTP/1.1
+      // Host: www.dneonline.com
+      // Content-Type: text/xml; charset=utf-8
+      // Content-Length: length
+      // SOAPAction: "http://tempuri.org/Add"
+
+      // <?xml version="1.0" encoding="utf-8"?>
+      // <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+      //   <soap:Body>
+      //     <Add xmlns="http://tempuri.org/">
+      //       <intA>int</intA>
+      //       <intB>int</intB>
+      //     </Add>
+      //   </soap:Body>
+      // </soap:Envelope>
+
+      //build the xml body
+
+      const xmlBody = begin()
+        .ele("soap:Envelope", {
+          "xmlnw:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+          "xmlns:xsd": "http://www.w3.org/2001/XMLSchema",
+          "xmlns:soap": "http://schemas.xmlsoap.org/soap/envelope/",
+        })
+        .ele("soap:Body")
+        .ele("Add", { xmlns: "http://tempuri.org/" })
+        .ele("intA")
+        .text(product1.price)
+        .up()
+        .ele("intB")
+        .text(product2.price)
+        .end()
+
+      console.log(xmlBody)
+
+      const response = await axios({
+        method: "post",
+        url: "http://www.dneonline.com/calculator.asmx?op=Add",
+        data: xmlBody,
+        headers: { "Content-type": "text/xml" },
+      })
+
+      if (response.ok) {
+        const xml = response.data
+        console.log(xml)
+        const parsedJs = await asyncParser(xml)
+
+        res.send(parsedJs)
+      } else {
+        console.log("somethin went wrong")
+      }
+    } else {
+      console.log("one or both id not found")
+    }
+  } catch (error) {
+    next(error)
   }
 })
 
