@@ -14,6 +14,7 @@ const { promisify } = require("util")
 const { begin } = require("xmlbuilder")
 const { parse } = require("path")
 const { send } = require("process")
+const { readJson, writeJson } = require("fs-extra")
 
 //Create Middleware Instances
 const router = express.Router()
@@ -247,22 +248,20 @@ router.get("/sum/TwoPrices", async (req, res, next) => {
 
       //build the xml body
 
-      const xmlBody = begin()
+      const xmlBody = begin({ version: "1.0", encoding: "utf-8" })
         .ele("soap:Envelope", {
-          "xmlnw:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+          "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
           "xmlns:xsd": "http://www.w3.org/2001/XMLSchema",
           "xmlns:soap": "http://schemas.xmlsoap.org/soap/envelope/",
         })
         .ele("soap:Body")
         .ele("Add", { xmlns: "http://tempuri.org/" })
         .ele("intA")
-        .text(product1.price)
+        .text(parseInt(product1.price))
         .up()
         .ele("intB")
-        .text(product2.price)
+        .text(parseInt(product2.price))
         .end()
-
-      console.log(xmlBody)
 
       const response = await axios({
         method: "post",
@@ -271,19 +270,17 @@ router.get("/sum/TwoPrices", async (req, res, next) => {
         headers: { "Content-type": "text/xml" },
       })
 
-      if (response.ok) {
-        const xml = response.data
-        console.log(xml)
-        const parsedJs = await asyncParser(xml)
+      const xml = response.data
 
-        res.send(parsedJs)
-      } else {
-        console.log("somethin went wrong")
-      }
+      const parsedJs = await asyncParser(xml)
+      console.log(parsedJs["soap:Envelope"]["soap:Body"][0])
+
+      res.send(parsedJs)
     } else {
       console.log("one or both id not found")
     }
   } catch (error) {
+    console.log(error)
     next(error)
   }
 })
